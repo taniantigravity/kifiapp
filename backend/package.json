@@ -7,6 +7,7 @@
     "dev": "nodemon src/server.ts",
     "setup-phase7": "ts-node setup-phase7.ts",
     "cleanup-demo": "ts-node cleanup-demo.ts",
+    "reset-db": "ts-node reset-db.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
