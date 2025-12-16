@@ -352,6 +352,7 @@ CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
     customer_code VARCHAR(20) UNIQUE NOT NULL,
     full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
     phone_number VARCHAR(20) UNIQUE NOT NULL,
     alternate_phone VARCHAR(20),
     location VARCHAR(100),

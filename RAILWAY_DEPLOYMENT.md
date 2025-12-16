@@ -62,10 +62,14 @@ Or use any strong password generator.
 ### 4. Link Backend & Frontend
 Once the backend is deployed on Railway:
 1. Get the backend API URL from Railway (e.g., `https://your-service.railway.app`)
-2. Go to **Netlify dashboard** → Your frontend site
-3. Go to **Site settings** → **Build & deploy** → **Environment**
-4. Add variable: `VITE_API_URL=https://your-railway-backend-url`
-5. Trigger a redeploy (push to GitHub or manually redeploy in Netlify)
+2. Go to **Netlify dashboard** → Select your site
+3. Click on **"Site configuration"** (or **"Site settings"**) in the left sidebar
+4. Select **"Environment variables"** from the menu
+5. Click **"Add a variable"**
+6. Key: `VITE_API_URL`
+7. Value: `https://your-railway-backend-url` (Your actual Railway URL)
+8. Click **"Create variable"**
+9. **Trigger a redeploy**: Go to **"Deploys"** tab → **"Trigger deploy"** → **"Deploy site"** for changes to take effect.
 
 ### 5. Initialize the Database
 Once deployed, you'll need to run database migrations/setup:

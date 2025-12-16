@@ -23,8 +23,12 @@ The `netlify.toml` in your repo already configures:
 Netlify will auto-detect these from `netlify.toml`. Just proceed with deployment.
 
 ### 4. Set Environment Variables (if needed)
-If your frontend requires API endpoints, set in Netlify dashboard **Site settings → Build & deploy → Environment**:
-- `VITE_API_URL` = your backend API URL (e.g., Railway/Render backend)
+If your frontend requires API endpoints:
+1. Go to **"Site configuration"** (left sidebar)
+2. Select **"Environment variables"**
+3. Click **"Add a variable"**
+4. Add `VITE_API_URL` with your backend URL (e.g., `https://kifiapp-production.up.railway.app`)
+5. **Redeploy** for changes to take effect.
 
 ### 5. Deploy
 - Click **"Deploy site"**
