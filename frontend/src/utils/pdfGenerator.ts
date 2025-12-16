@@ -22,8 +22,14 @@ interface FinancialReportData {
     }>;
 }
 
+interface jsPDFWithAutoTable extends jsPDF {
+    lastAutoTable: {
+        finalY: number;
+    };
+}
+
 export const generateFinancialReport = (data: FinancialReportData) => {
-    const doc = new jsPDF();
+    const doc = new jsPDF() as jsPDFWithAutoTable;
     const pageWidth = doc.internal.pageSize.getWidth();
 
     // Header Section
@@ -110,7 +116,7 @@ export const generateFinancialReport = (data: FinancialReportData) => {
     });
 
     // Recent Sales Section
-    yPos = (doc as any).lastAutoTable.finalY + 18;
+    yPos = doc.lastAutoTable.finalY + 18;
     doc.setFontSize(13);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(0, 0, 0);
@@ -151,7 +157,7 @@ export const generateFinancialReport = (data: FinancialReportData) => {
             },
             margin: { left: 14, right: 14 }
         });
-        yPos = (doc as any).lastAutoTable.finalY;
+        yPos = doc.lastAutoTable.finalY;
     }
 
     // Recent Expenses Section
@@ -331,7 +337,7 @@ export const generateSalesReport = (data: SalesReportData) => {
     });
 
     // Top Customers Section
-    yPos = (doc as any).lastAutoTable.finalY + 18;
+    yPos = doc.lastAutoTable.finalY + 18;
     doc.setFontSize(13);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(0, 0, 0);
@@ -372,7 +378,7 @@ export const generateSalesReport = (data: SalesReportData) => {
             },
             margin: { left: 14, right: 14 }
         });
-        yPos = (doc as any).lastAutoTable.finalY;
+        yPos = doc.lastAutoTable.finalY;
     }
 
     // Sales by Batch Section
@@ -425,7 +431,7 @@ export const generateSalesReport = (data: SalesReportData) => {
             },
             margin: { left: 14, right: 14 }
         });
-        yPos = (doc as any).lastAutoTable.finalY;
+        yPos = doc.lastAutoTable.finalY;
     }
 
     // Detailed Transactions Section
@@ -597,7 +603,7 @@ export const generateProductionReport = (data: ProductionReportData) => {
     });
 
     // Batches by Stage Section
-    yPos = (doc as any).lastAutoTable.finalY + 18;
+    yPos = doc.lastAutoTable.finalY + 18;
     doc.setFontSize(13);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(0, 0, 0);
@@ -638,7 +644,7 @@ export const generateProductionReport = (data: ProductionReportData) => {
             },
             margin: { left: 14, right: 14 }
         });
-        yPos = (doc as any).lastAutoTable.finalY;
+        yPos = doc.lastAutoTable.finalY;
     }
 
     // Batch Performance Details Section

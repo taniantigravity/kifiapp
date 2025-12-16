@@ -43,8 +43,8 @@ export default function SpawnList() {
 
     const sortedSpawns = useMemo(() => {
         return [...spawns].sort((a, b) => {
-            let aValue: any = '';
-            let bValue: any = '';
+            let aValue: string | number = '';
+            let bValue: string | number = '';
 
             switch (sortConfig.key) {
                 case 'date':

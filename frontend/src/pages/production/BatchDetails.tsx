@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Scale, ArrowRightLeft, TrendingUp, History } from 'lucide-react';
 import { format } from 'date-fns';
@@ -35,11 +35,8 @@ export default function BatchDetails() {
     const [showGrowthModal, setShowGrowthModal] = useState(false);
     const [showMoveModal, setShowMoveModal] = useState(false);
 
-    useEffect(() => {
-        if (id) fetchBatchData();
-    }, [id]);
-
-    const fetchBatchData = async () => {
+    const fetchBatchData = useCallback(async () => {
+        if (!id) return;
         try {
             const [batchRes, growthRes, moveRes] = await Promise.all([
                 api.get(`/production/batches/${id}`),
@@ -55,7 +52,11 @@ export default function BatchDetails() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [id]);
+
+    useEffect(() => {
+        fetchBatchData();
+    }, [fetchBatchData]);
 
     if (loading) return <AppLayout><div>Loading...</div></AppLayout>;
     if (!batch) return <AppLayout><div>Batch not found</div></AppLayout>;
@@ -116,7 +117,7 @@ export default function BatchDetails() {
                         {['overview', 'growth', 'movements'].map((tab) => (
                             <button
                                 key={tab}
-                                onClick={() => setActiveTab(tab as any)}
+                                onClick={() => setActiveTab(tab as 'overview' | 'growth' | 'movements')}
                                 className={`
                                     whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm capitalize
                                     ${activeTab === tab
@@ -260,7 +261,7 @@ function GrowthModal({ batchId, onClose, onSuccess }: { batchId: number, onClose
                 notes: 'Manual Entry'
             });
             onSuccess();
-        } catch (err) {
+        } catch {
             alert('Failed to save');
         } finally {
             setSubmitting(false);
@@ -290,7 +291,7 @@ function GrowthModal({ batchId, onClose, onSuccess }: { batchId: number, onClose
     );
 }
 
-import type { Tank } from '../../types';
+
 
 function MoveModal({ batchId, onClose, onSuccess }: { batchId: number, onClose: () => void, onSuccess: () => void }) {
     const [tanks, setTanks] = useState<Tank[]>([]);
@@ -314,7 +315,7 @@ function MoveModal({ batchId, onClose, onSuccess }: { batchId: number, onClose: 
                 notes: 'Manual Move'
             });
             onSuccess();
-        } catch (err) {
+        } catch {
             alert('Failed to move');
         } finally {
             setSubmitting(false);

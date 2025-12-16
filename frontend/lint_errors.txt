@@ -1,0 +1,166 @@
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/components/OfflineIndicator.tsx
+   6:61  error  'lastSyncTime' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  11:19  error  'result' is assigned a value but never used        @typescript-eslint/no-unused-vars
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/context/AuthContext.tsx
+  36:25  error  Error: Cannot access variable before it is declared
+
+`logout` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/context/AuthContext.tsx:36:25
+  34 |                         setUser(response.data.data.user);
+  35 |                     } else {
+> 36 |                         logout();
+     |                         ^^^^^^ `logout` accessed before it is declared
+  37 |                     }
+  38 |                 } catch (error) {
+  39 |                     console.error("Auth verification failed", error);
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/context/AuthContext.tsx:56:5
+  54 |     };
+  55 |
+> 56 |     const logout = () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^
+> 57 |         localStorage.removeItem('token');
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 58 |         localStorage.removeItem('user');
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 59 |         setToken(null);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 60 |         setUser(null);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 61 |     };
+     | ^^^^^^^ `logout` is declared here
+  62 |
+  63 |     return (
+  64 |         <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated: !!user, isLoading }}>  react-hooks/immutability
+  70:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react-refresh/only-export-components
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/hooks/useOfflineSync.ts
+   54:33  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-explicit-any
+  110:9   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/hooks/useOfflineSync.ts:110:9
+  108 |
+  109 |         // Initial pending count
+> 110 |         updatePendingCount();
+      |         ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  111 |
+  112 |         return () => {
+  113 |             window.removeEventListener('online', handleOnline);  react-hooks/set-state-in-effect
+  130:15  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/lib/offlineStorage.ts
+    7:11  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   14:11  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   20:32  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   28:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   46:80  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   94:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  109:47  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/Login.tsx
+  43:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/feed/FeedInventory.tsx
+  19:48  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+  39:9   error  Error: Cannot access variable before it is declared
+
+`fetchFeed` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/feed/FeedInventory.tsx:39:9
+  37 |
+  38 |     useEffect(() => {
+> 39 |         fetchFeed();
+     |         ^^^^^^^^^ `fetchFeed` accessed before it is declared
+  40 |     }, []);
+  41 |
+  42 |     const fetchFeed = () => {
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/feed/FeedInventory.tsx:42:5
+  40 |     }, []);
+  41 |
+> 42 |     const fetchFeed = () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 43 |         Promise.all([
+     | ^^^^^^^^^^^^^^^^^^^^^
+> 44 |             api.get('/finance/feed'),
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^
+> 53 |         });
+     | ^^^^^^^^^^^^^^^^^^^^^
+> 54 |     };
+     | ^^^^^^^ `fetchFeed` is declared here
+  55 |
+  56 |     const handleSubmit = async (e: React.FormEvent) => {
+  57 |         e.preventDefault();  react-hooks/immutability
+  64:25  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/feed/FeedLog.tsx
+  53:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/finance/ExpensesList.tsx
+  45:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/finance/FinancialDashboard.tsx
+  50:68  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/people/SuppliersList.tsx
+  49:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/people/WorkersList.tsx
+   3:41  error  'Calendar' is defined but never used      @typescript-eslint/no-unused-vars
+  49:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/BatchDetails.tsx
+   40:8   warning  React Hook useEffect has a missing dependency: 'fetchBatchData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  119:68  error    Unexpected any. Specify a different type                                                                           @typescript-eslint/no-explicit-any
+  263:18  error    'err' is defined but never used                                                                                    @typescript-eslint/no-unused-vars
+  317:18  error    'err' is defined but never used                                                                                    @typescript-eslint/no-unused-vars
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/BatchList.tsx
+  63:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  64:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/EditBatch.tsx
+  72:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/EditSpawn.tsx
+  72:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/NewBatch.tsx
+  21:44  error    'setValue' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  30:20  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/NewBatch.tsx:30:20
+  28 |     const [tanks, setTanks] = useState<Tank[]>([]);
+  29 |     const [spawns, setSpawns] = useState<Spawn[]>([]);
+> 30 |     const source = watch('source');
+     |                    ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  31 |
+  32 |     useEffect(() => {
+  33 |         const fetchData = async () => {  react-hooks/incompatible-library
+  49:11  error    'startDate' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  64:25  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/NewBroodstock.tsx
+  27:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/NewSpawn.tsx
+  27:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 38 problems (36 errors, 2 warnings)
+

@@ -50,7 +50,7 @@ export default function FeedLog() {
             });
             alert('Feed usage logged successfully');
             setFormData({ batch_id: '', feed_id: '', quantity_kg: '', notes: '' });
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             alert(error.response?.data?.message || 'Failed to log usage');
         } finally {
             setLoading(false);

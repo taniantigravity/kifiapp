@@ -18,7 +18,7 @@ interface BatchFormData {
 
 export default function NewBatch() {
     const navigate = useNavigate();
-    const { register, handleSubmit, watch, setValue, formState: { errors, isSubmitting } } = useForm<BatchFormData>({
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<BatchFormData>({
         defaultValues: {
             start_date: new Date().toISOString().split('T')[0],
             source: 'Spawn'
@@ -46,7 +46,7 @@ export default function NewBatch() {
         fetchData();
     }, []);
 
-    const startDate = watch('start_date');
+
     // Batch code is now generated on backend to avoid collisions
 
     const onSubmit = async (data: BatchFormData) => {
@@ -61,7 +61,7 @@ export default function NewBatch() {
             if (response.data.success) {
                 navigate('/production/batches');
             }
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             console.error('Create batch error', error);
             alert(error.response?.data?.message || 'Failed to create batch');
         }

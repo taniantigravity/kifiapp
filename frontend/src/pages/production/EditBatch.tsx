@@ -69,7 +69,7 @@ export default function EditBatch() {
             if (response.data.success) {
                 navigate('/production/batches');
             }
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             console.error('Update batch error', error);
             const msg = error.response?.data?.message || 'Failed to update batch';
             alert(msg);

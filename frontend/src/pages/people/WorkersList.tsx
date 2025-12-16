@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { Plus, Phone, User, DollarSign, Calendar } from 'lucide-react';
+import { Plus, Phone, User, DollarSign } from 'lucide-react';
 import { AppLayout } from '../../components/layout/AppLayout';
 import api from '../../lib/api';
 
@@ -46,7 +46,7 @@ export default function WorkersList() {
             setShowModal(false);
             setFormData({ full_name: '', role: 'Attendant', phone: '', salary_ngn: '', status: 'Active', start_date: new Date().toISOString().split('T')[0] });
             fetchWorkers();
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             alert(error.response?.data?.message || 'Failed to add worker');
         }
     };

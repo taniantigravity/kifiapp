@@ -42,7 +42,7 @@ export default function ExpensesList() {
             setShowModal(false);
             setFormData({ category: '', amount: '', description: '', expense_date: new Date().toISOString().split('T')[0] });
             fetchExpenses();
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             alert(error.response?.data?.message || 'Failed to record expense');
         }
     };

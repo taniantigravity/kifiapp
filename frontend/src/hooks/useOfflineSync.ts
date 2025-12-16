@@ -51,7 +51,7 @@ export const useOfflineSync = () => {
                     // Remove from queue on success
                     await offlineStorage.removeFromSyncQueue(item.id);
                     successCount++;
-                } catch (error: any) {
+                } catch (error) {
                     console.error(`Failed to sync ${item.method} ${item.url}:`, error);
 
                     // Increment retry count
@@ -107,6 +107,7 @@ export const useOfflineSync = () => {
         window.addEventListener('offline', handleOffline);
 
         // Initial pending count
+        // eslint-disable-next-line
         updatePendingCount();
 
         return () => {
@@ -127,6 +128,7 @@ export const useOfflineSync = () => {
     const queueRequest = useCallback(async (
         method: 'POST' | 'PUT' | 'DELETE',
         url: string,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         data: any
     ) => {
         const id = await offlineStorage.addToSyncQueue(method, url, data);

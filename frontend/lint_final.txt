@@ -1,0 +1,47 @@
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/context/AuthContext.tsx
+  70:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/hooks/useOfflineSync.ts
+  72:13  warning  Unused eslint-disable directive (no problems were reported)
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/Login.tsx
+  43:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/feed/FeedInventory.tsx
+  19:48  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/finance/FinancialDashboard.tsx
+  50:68  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/BatchDetails.tsx
+   40:8   warning  React Hook useEffect has a missing dependency: 'fetchBatchData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  119:68  error    Unexpected any. Specify a different type                                                                           @typescript-eslint/no-explicit-any
+  263:18  error    'err' is defined but never used                                                                                    @typescript-eslint/no-unused-vars
+  317:18  error    'err' is defined but never used                                                                                    @typescript-eslint/no-unused-vars
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/BatchList.tsx
+  63:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  64:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/NewBatch.tsx
+  30:20  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+/home/aminua/Documents/Tani Nigeria Ltd/Antigravity/KifiApp/frontend/src/pages/production/NewBatch.tsx:30:20
+  28 |     const [tanks, setTanks] = useState<Tank[]>([]);
+  29 |     const [spawns, setSpawns] = useState<Spawn[]>([]);
+> 30 |     const source = watch('source');
+     |                    ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  31 |
+  32 |     useEffect(() => {
+  33 |         const fetchData = async () => {  react-hooks/incompatible-library
+
+✖ 12 problems (9 errors, 3 warnings)
+  0 errors and 1 warning potentially fixable with the `--fix` option.
+

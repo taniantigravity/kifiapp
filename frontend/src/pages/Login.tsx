@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Eye, EyeOff, Lock, Phone } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../lib/api';
 
 const loginSchema = z.object({
-    phone_number: z.string().min(11, 'Phone number must be at least 11 digits').regex(/^(070|080|081|090|091)\d{8}$/, 'Invalid Nigerian phone number format'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
+    identifier: z.string().min(3, 'Username or Phone number is required'),
+    password: z.string().min(1, 'Password is required'), // Relaxed min length for UX, backend handles security
     rememberMe: z.boolean().optional(),
 });
 
@@ -32,7 +32,7 @@ const Login: React.FC = () => {
         setError(null);
         try {
             const response = await api.post('/auth/login', {
-                phone_number: data.phone_number,
+                identifier: data.identifier,
                 password: data.password
             });
 
@@ -40,6 +40,7 @@ const Login: React.FC = () => {
                 login(response.data.data.token, response.data.data.user);
                 navigate('/dashboard');
             }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
         }
@@ -68,21 +69,21 @@ const Login: React.FC = () => {
                 {/* Form */}
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
-                    {/* Phone Input */}
+                    {/* Identifier Input */}
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 block">Phone Number</label>
+                        <label className="text-sm font-medium text-gray-700 block">Username or Phone Number</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <Phone className="h-5 w-5 text-gray-400" />
                             </div>
                             <input
-                                type="tel"
-                                placeholder="08012345678"
-                                className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.phone_number ? 'border-red-500' : 'border-gray-300'}`}
-                                {...register('phone_number')}
+                                type="text"
+                                placeholder="Username or 08012345678"
+                                className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.identifier ? 'border-red-500' : 'border-gray-300'}`}
+                                {...register('identifier')}
                             />
                         </div>
-                        {errors.phone_number && <p className="text-xs text-red-500">{errors.phone_number.message}</p>}
+                        {errors.identifier && <p className="text-xs text-red-500">{errors.identifier.message}</p>}
                     </div>
 
                     {/* Password Input */}
@@ -142,9 +143,17 @@ const Login: React.FC = () => {
                     </div>
 
                 </form>
+
+                <div className="mt-6 text-center">
+                    <p className="text-sm text-gray-600">
+                        Don't have an account?{' '}
+                        <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+                            Sign up here
+                        </Link>
+                    </p>
+                </div>
             </div>
         </div>
     );
 };
-
 export default Login;

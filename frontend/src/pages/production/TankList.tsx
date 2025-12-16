@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Layers } from 'lucide-react';
+
 import { AppLayout } from '../../components/layout/AppLayout';
 import api from '../../lib/api';
 import type { Tank } from '../../types';

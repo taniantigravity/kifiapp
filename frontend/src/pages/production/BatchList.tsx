@@ -60,8 +60,8 @@ export default function BatchList() {
 
     const sortedBatches = useMemo(() => {
         return [...batches].sort((a, b) => {
-            let aValue: any = '';
-            let bValue: any = '';
+            let aValue: string | number = '';
+            let bValue: string | number = '';
 
             switch (sortConfig.key) {
                 case 'date':

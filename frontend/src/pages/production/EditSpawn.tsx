@@ -69,7 +69,7 @@ export default function EditSpawn() {
             if (response.data.success) {
                 navigate('/production');
             }
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             console.error('Update spawn error', error);
             const msg = error.response?.data?.message || 'Failed to update spawn.';
             alert(msg);

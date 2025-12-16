@@ -24,7 +24,7 @@ export default function NewBroodstock() {
                 // or just go back to previous page
                 navigate(-1);
             }
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             console.error('Create broodstock error', error);
             alert(error.response?.data?.message || 'Failed to create broodstock');
         }

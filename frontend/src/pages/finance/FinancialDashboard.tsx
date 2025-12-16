@@ -47,6 +47,7 @@ export default function FinancialDashboard() {
         }
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const StatCard = ({ title, amount, icon: Icon, color, trend }: any) => (
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">

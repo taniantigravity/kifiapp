@@ -16,6 +16,7 @@ interface FeedItem {
 
 export default function FeedInventory() {
     const [feedItems, setFeedItems] = useState<FeedItem[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [suppliers, setSuppliers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -35,10 +36,6 @@ export default function FeedInventory() {
 
 
 
-    useEffect(() => {
-        fetchFeed();
-    }, []);
-
     const fetchFeed = () => {
         Promise.all([
             api.get('/finance/feed'),
@@ -53,6 +50,10 @@ export default function FeedInventory() {
         });
     };
 
+    useEffect(() => {
+        fetchFeed();
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -61,7 +62,7 @@ export default function FeedInventory() {
             setFormData({ name: '', type: 'Pellets', bag_size_kg: '', num_bags: '', cost_per_bag: '', supplier: '', notes: '' });
             fetchFeed();
             alert('Purchase recorded! (Inventory updated & Expense logged)');
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             alert(error.response?.data?.message || 'Failed to record purchase');
         }
     };

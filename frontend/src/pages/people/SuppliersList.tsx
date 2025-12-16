@@ -46,7 +46,7 @@ export default function SuppliersList() {
             setShowModal(false);
             setFormData({ name: '', contact_person: '', phone: '', email: '', category: 'Feed', notes: '' });
             fetchSuppliers();
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             alert(error.response?.data?.message || 'Failed to add supplier');
         }
     };

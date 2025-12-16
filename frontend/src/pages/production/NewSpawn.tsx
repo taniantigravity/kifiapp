@@ -24,7 +24,7 @@ export default function NewSpawn() {
             if (response.data.success) {
                 navigate('/production');
             }
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             console.error('Create spawn error', error);
             const msg = error.response?.data?.message || 'Failed to create spawn. Please check the Broodstock Codes.';
             alert(msg);

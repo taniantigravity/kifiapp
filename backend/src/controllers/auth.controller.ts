@@ -49,20 +49,20 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-    const { phone_number, password } = req.body;
+    const { identifier, password } = req.body;
 
-    if (!phone_number || !password) {
-        return res.status(400).json({ success: false, message: 'Phone number and password are required' });
+    if (!identifier || !password) {
+        return res.status(400).json({ success: false, message: 'Username/Phone and password are required' });
     }
 
     try {
-        // Check if user exists
+        // Check if user exists (by username or phone number)
         const userResult = await query(
             `SELECT u.*, r.role_name 
        FROM users u 
        JOIN user_roles r ON u.role_id = r.role_id 
-       WHERE u.phone_number = $1`,
-            [phone_number]
+       WHERE u.phone_number = $1 OR u.username = $1`,
+            [identifier]
         );
 
         if (userResult.rows.length === 0) {

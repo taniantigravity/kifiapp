@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { Plus, Search, Filter, Phone, Mail, MapPin } from 'lucide-react';
+import { Plus, Phone, Mail } from 'lucide-react';
 import { AppLayout } from '../../components/layout/AppLayout';
 import api from '../../lib/api';
 
@@ -43,8 +43,9 @@ export default function CustomerList() {
             setShowModal(false);
             setFormData({ name: '', phone: '', email: '', address: '', notes: '' });
             fetchCustomers();
-        } catch (error: any) {
-            alert(error.response?.data?.message || 'Failed to create customer');
+        } catch (error) {
+            const err = error as { response?: { data?: { message?: string } } };
+            alert(err.response?.data?.message || 'Failed to create customer');
         }
     };
 

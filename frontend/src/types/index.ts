@@ -44,4 +44,6 @@ export interface Batch {
     spawn_code?: string; // from join
     status: 'Active' | 'Harvested' | 'Combined' | 'Sold';
     current_stage: 'Fry' | 'Fingerling' | 'Juvenile' | 'Grow-out' | 'Table Size';
+    current_avg_size_g?: number;
+    notes?: string;
 }

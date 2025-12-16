@@ -3,12 +3,12 @@ import { useOfflineSync } from '../hooks/useOfflineSync';
 import { useState } from 'react';
 
 export const OfflineIndicator = () => {
-    const { isOnline, isSyncing, pendingCount, triggerSync, lastSyncTime } = useOfflineSync();
+    const { isOnline, isSyncing, pendingCount, triggerSync } = useOfflineSync();
     const [showToast, setShowToast] = useState(false);
 
     const handleManualSync = async () => {
         try {
-            const result = await triggerSync();
+            await triggerSync();
             setShowToast(true);
             setTimeout(() => setShowToast(false), 3000);
         } catch (error) {
@@ -25,8 +25,8 @@ export const OfflineIndicator = () => {
             {/* Status Badge */}
             <div className="fixed top-4 right-4 z-50">
                 <div className={`flex items-center gap-2 px-3 py-2 rounded-lg shadow-lg text-sm font-medium transition-all ${isOnline
-                        ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                        : 'bg-red-50 text-red-700 border border-red-200'
+                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                    : 'bg-red-50 text-red-700 border border-red-200'
                     }`}>
                     {isOnline ? (
                         <Wifi className="w-4 h-4" />
