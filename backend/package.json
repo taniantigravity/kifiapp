@@ -11,7 +11,8 @@
     "delete-all-data": "ts-node delete-all-data.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "prod-db-init": "ts-node database/init-prod.ts"
+    "prod-db-init": "ts-node database/init-prod.ts",
+    "prod-db-patch": "ts-node database/patch-prod.ts"
   },
   "keywords": [],
   "author": "",
