@@ -26,7 +26,7 @@ import { OfflineIndicator } from './components/OfflineIndicator';
 const queryClient = new QueryClient();
 
 // Protected Route Component
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {

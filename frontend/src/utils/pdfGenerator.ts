@@ -273,7 +273,7 @@ interface SalesReportData {
 }
 
 export const generateSalesReport = (data: SalesReportData) => {
-    const doc = new jsPDF();
+    const doc = new jsPDF() as jsPDFWithAutoTable;
     const pageWidth = doc.internal.pageSize.getWidth();
 
     // Header Section
@@ -542,7 +542,7 @@ interface ProductionReportData {
 }
 
 export const generateProductionReport = (data: ProductionReportData) => {
-    const doc = new jsPDF();
+    const doc = new jsPDF() as jsPDFWithAutoTable;
     const pageWidth = doc.internal.pageSize.getWidth();
 
     // Header Section

@@ -2,6 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { query } from '../config/db';
 
+interface AuthRequest extends Request {
+    user?: any;
+}
+
 export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -32,7 +36,7 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
         // Let's stick to the payload for the role name to avoid extra join unless strictness needed,
         // but we DID verify existence.
 
-        req.user = {
+        (req as AuthRequest).user = {
             ...user,
             role: decoded.role // Keep role from token or fetch from DB if we want real-time role updates.
         };

@@ -4,7 +4,7 @@ import { ArrowLeft, Scale, ArrowRightLeft, TrendingUp, History } from 'lucide-re
 import { format } from 'date-fns';
 import { AppLayout } from '../../components/layout/AppLayout';
 import api from '../../lib/api';
-import type { Batch } from '../../types';
+import type { Batch, Tank } from '../../types';
 
 interface GrowthSample {
     sample_id: number;
