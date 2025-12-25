@@ -84,7 +84,7 @@ export default function Dashboard() {
                     />
 
                     <StatCard
-                        title="Spawns (Week)"
+                        title="Spawns (Month)"
                         value={loading ? '-' : summary?.spawns_this_week || 0}
                         icon={Fish}
                         color="purple"

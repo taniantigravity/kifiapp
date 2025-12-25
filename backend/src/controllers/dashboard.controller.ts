@@ -6,7 +6,7 @@ export const getDashboardSummary = async (req: Request, res: Response) => {
         // These queries align with the schema views or direct table counts
         const activeBatchesResult = await query(`SELECT COUNT(*) as count FROM batches WHERE status = 'Active'`);
         const totalFishResult = await query(`SELECT SUM(current_count) as total FROM batches WHERE status = 'Active'`);
-        const spawnsThisWeekResult = await query(`SELECT COUNT(*) as count FROM spawns WHERE spawn_date >= CURRENT_DATE - INTERVAL '7 days'`);
+        const spawnsThisWeekResult = await query(`SELECT COUNT(*) as count FROM spawns WHERE spawn_date >= CURRENT_DATE - INTERVAL '30 days'`);
         const salesThisWeekResult = await query(`SELECT SUM(total_amount_ngn) as total FROM sales WHERE sale_date >= CURRENT_DATE - INTERVAL '7 days'`);
 
         // Use a safe query that won't fail if table doesn't exist (though it should)
