@@ -29,7 +29,8 @@ export const recordPurchase = async (req: Request, res: Response) => {
             num_bags,
             cost_per_bag,
             supplier,
-            notes
+            notes,
+            purchase_date
         } = req.body;
 
         if (!name || !bag_size_kg || !num_bags || !cost_per_bag) {
