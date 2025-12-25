@@ -27,7 +27,7 @@ If your frontend requires API endpoints:
 1. Go to **"Site configuration"** (left sidebar)
 2. Select **"Environment variables"**
 3. Click **"Add a variable"**
-4. Add `VITE_API_URL` with your backend URL (e.g., `https://kifiapp-production.up.railway.app`)
+4. Add `VITE_API_URL` with your backend domain (e.g., `https://kifiapp-production.up.railway.app`). Do NOT include `/api/v1` at the end, the app handles it.
 5. **Redeploy** for changes to take effect.
 
 ### 5. Deploy
