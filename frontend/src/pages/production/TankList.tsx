@@ -190,10 +190,11 @@ export default function TankList() {
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Capacity (L)</label>
                                     <input
                                         type="number"
-                                        value={formData.capacity_liters}
-                                        onChange={e => setFormData({ ...formData, capacity_liters: parseInt(e.target.value) })}
+                                        value={formData.capacity_liters || ''}
+                                        onChange={e => setFormData({ ...formData, capacity_liters: e.target.value === '' ? 0 : parseInt(e.target.value) })}
                                         className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                         required
+                                        min="1"
                                     />
                                 </div>
                             </div>

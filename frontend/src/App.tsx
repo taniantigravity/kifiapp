@@ -14,6 +14,7 @@ import BatchDetails from './pages/production/BatchDetails';
 import SalesList from './pages/sales/SalesList';
 import NewSale from './pages/sales/NewSale';
 import CustomerList from './pages/sales/CustomerList';
+import TankList from './pages/production/TankList';
 
 import FeedInventory from './pages/feed/FeedInventory';
 import FeedLog from './pages/feed/FeedLog';
@@ -21,6 +22,7 @@ import ExpensesList from './pages/finance/ExpensesList';
 import FinancialDashboard from './pages/finance/FinancialDashboard';
 import SuppliersList from './pages/people/SuppliersList';
 import WorkersList from './pages/people/WorkersList';
+import ExpenseCategories from './pages/finance/ExpenseCategories';
 import { ReloadPrompt } from './components/ReloadPrompt';
 import { OfflineIndicator } from './components/OfflineIndicator';
 
@@ -66,9 +68,11 @@ function App() {
           <Route path="/feed" element={<ProtectedRoute><FeedInventory /></ProtectedRoute>} />
           <Route path="/feed/log" element={<ProtectedRoute><FeedLog /></ProtectedRoute>} />
           <Route path="/expenses" element={<ProtectedRoute><ExpensesList /></ProtectedRoute>} />
+          <Route path="/expenses/categories" element={<ProtectedRoute><ExpenseCategories /></ProtectedRoute>} />
           <Route path="/financial-dashboard" element={<ProtectedRoute><FinancialDashboard /></ProtectedRoute>} />
           <Route path="/suppliers" element={<ProtectedRoute><SuppliersList /></ProtectedRoute>} />
           <Route path="/workers" element={<ProtectedRoute><WorkersList /></ProtectedRoute>} />
+          <Route path="/tanks" element={<ProtectedRoute><TankList /></ProtectedRoute>} />
 
           {/* Catch-all for 404 */}
           <Route path="*" element={
