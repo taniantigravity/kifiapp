@@ -32,7 +32,6 @@ export default function NewSpawn() {
     });
 
     const [options, setOptions] = useState<{ females: BroodstockOption[], males: BroodstockOption[] }>({ females: [], males: [] });
-    const [loading, setLoading] = useState(true);
 
     const femaleCode = watch('female_code');
     const maleCode = watch('male_code');
@@ -46,8 +45,6 @@ export default function NewSpawn() {
                 }
             } catch (error) {
                 console.error('Failed to fetch broodstock options', error);
-            } finally {
-                setLoading(false);
             }
         };
         fetchOptions();
