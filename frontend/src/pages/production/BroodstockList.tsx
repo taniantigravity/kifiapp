@@ -51,7 +51,7 @@ export default function BroodstockList() {
             setEditingItem(null);
             setFormData({ broodstock_code: '', sex: 'Female', weight_kg: 0, health_status: 'Active', notes: '', species: 'Catfish' });
             fetchBroodstock();
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             alert(error.response?.data?.message || 'Failed to save broodstock');
         }
     };
@@ -61,7 +61,7 @@ export default function BroodstockList() {
         try {
             await api.delete(`/broodstock/${id}`);
             fetchBroodstock();
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             alert(error.response?.data?.message || 'Failed to delete broodstock. Consider marking as Inactive.');
         }
     };

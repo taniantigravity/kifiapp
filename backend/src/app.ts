@@ -10,6 +10,7 @@ import productionRoutes from './routes/production.routes';
 import salesRoutes from './routes/sales.routes';
 import financeRoutes from './routes/finance.routes';
 import peopleRoutes from './routes/people.routes';
+import healthRoutes from './routes/health.routes';
 
 const app: Application = express();
 
@@ -29,6 +30,7 @@ app.use('/api/v1/production', productionRoutes);
 app.use('/api/v1/sales', salesRoutes);
 app.use('/api/v1/finance', financeRoutes);
 app.use('/api/v1/people', peopleRoutes);
+app.use('/api/v1/health', healthRoutes);
 
 // Health Check
 app.get('/api/health', (req, res) => {

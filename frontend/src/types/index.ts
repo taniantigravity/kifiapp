@@ -54,6 +54,7 @@ export interface Tank {
     capacity_liters: number;
     location: string;
     is_active: boolean;
+    notes?: string;
 }
 
 export interface Batch {

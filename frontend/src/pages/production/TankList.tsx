@@ -48,7 +48,7 @@ export default function TankList() {
             setEditingTank(null);
             setFormData({ tank_name: '', tank_type: 'Hatching', location: '', capacity_liters: 0, notes: '', is_active: true });
             fetchTanks();
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             alert(error.response?.data?.message || 'Failed to save tank');
         }
     };
@@ -58,7 +58,7 @@ export default function TankList() {
         try {
             await api.delete(`/production/tanks/${id}`);
             fetchTanks();
-        } catch (error: any) {
+        } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             alert(error.response?.data?.message || 'Failed to delete tank');
         }
     };
