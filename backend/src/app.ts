@@ -42,4 +42,14 @@ app.use((req, res) => {
     res.status(404).json({ success: false, message: 'Route not found' });
 });
 
+// Global Error Handler
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.error('Unhandled Error:', err);
+    res.status(err.status || 500).json({
+        success: false,
+        message: err.message || 'Internal Server Error',
+        ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+    });
+});
+
 export default app;
