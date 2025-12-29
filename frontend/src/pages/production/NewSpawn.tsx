@@ -107,18 +107,12 @@ export default function NewSpawn() {
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Female Broodstock</label>
-                                    <select
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Female Code"
                                         className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                                        {...register('female_code', { required: 'Female is required' })}
-                                        disabled={loading}
-                                    >
-                                        <option value="">Select Female...</option>
-                                        {options.females.map(f => (
-                                            <option key={f.broodstock_id} value={f.broodstock_code}>
-                                                {f.broodstock_code} ({f.current_weight_kg}kg)
-                                            </option>
-                                        ))}
-                                    </select>
+                                        {...register('female_code', { required: 'Female code is required' })}
+                                    />
                                     {errors.female_code && <p className="text-xs text-red-500 mt-1">{errors.female_code.message}</p>}
                                 </div>
                                 <div>
@@ -135,18 +129,12 @@ export default function NewSpawn() {
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Male Broodstock</label>
-                                    <select
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Male Code"
                                         className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                                        {...register('male_code', { required: 'Male is required' })}
-                                        disabled={loading}
-                                    >
-                                        <option value="">Select Male...</option>
-                                        {options.males.map(m => (
-                                            <option key={m.broodstock_id} value={m.broodstock_code}>
-                                                {m.broodstock_code} ({m.current_weight_kg}kg)
-                                            </option>
-                                        ))}
-                                    </select>
+                                        {...register('male_code', { required: 'Male code is required' })}
+                                    />
                                     {errors.male_code && <p className="text-xs text-red-500 mt-1">{errors.male_code.message}</p>}
                                 </div>
                                 <div>
