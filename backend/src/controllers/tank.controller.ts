@@ -11,6 +11,27 @@ export const getTanks = async (req: Request, res: Response) => {
     }
 };
 
+export const getTankById = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ success: false, message: 'Tank ID is required' });
+        }
+
+        const result = await query('SELECT * FROM tanks WHERE tank_id = $1', [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ success: false, message: 'Tank not found' });
+        }
+
+        res.json({ success: true, data: result.rows[0] });
+    } catch (error: any) {
+        console.error('Get tank by ID error:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
+
 export const createTank = async (req: Request, res: Response) => {
     try {
         const { tank_name, tank_type, location, capacity_liters, notes } = req.body;

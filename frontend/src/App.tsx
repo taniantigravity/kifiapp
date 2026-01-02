@@ -14,7 +14,11 @@ import BatchDetails from './pages/production/BatchDetails';
 import SalesList from './pages/sales/SalesList';
 import NewSale from './pages/sales/NewSale';
 import CustomerList from './pages/sales/CustomerList';
-import TankList from './pages/production/TankList';
+import TankListOld from './pages/production/TankList';
+import TankList from './pages/tanks/TankList';
+import CreateTank from './pages/tanks/CreateTank';
+import EditTank from './pages/tanks/EditTank';
+import ViewTank from './pages/tanks/ViewTank';
 
 import FeedInventory from './pages/feed/FeedInventory';
 import FeedLog from './pages/feed/FeedLog';
@@ -73,6 +77,9 @@ function App() {
           <Route path="/suppliers" element={<ProtectedRoute><SuppliersList /></ProtectedRoute>} />
           <Route path="/workers" element={<ProtectedRoute><WorkersList /></ProtectedRoute>} />
           <Route path="/tanks" element={<ProtectedRoute><TankList /></ProtectedRoute>} />
+          <Route path="/tanks/create" element={<ProtectedRoute><CreateTank /></ProtectedRoute>} />
+          <Route path="/tanks/:id" element={<ProtectedRoute><ViewTank /></ProtectedRoute>} />
+          <Route path="/tanks/:id/edit" element={<ProtectedRoute><EditTank /></ProtectedRoute>} />
 
           {/* Catch-all for 404 */}
           <Route path="*" element={
