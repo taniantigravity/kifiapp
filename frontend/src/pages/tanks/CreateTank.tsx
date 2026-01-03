@@ -9,14 +9,14 @@ export default function CreateTank() {
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     tank_name: '',
-    tank_type: 'concrete',
+    tank_type: 'Hatching',
     location: '',
     capacity_liters: '',
     notes: ''
   });
   const token = localStorage.getItem('token');
 
-  const tankTypes = ['concrete', 'plastic', 'fiberglass', 'metal', 'earthen'];
+  const tankTypes = ['Hatching', 'IBC', 'Elevated', 'Ground', 'Tarpaulin'];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;

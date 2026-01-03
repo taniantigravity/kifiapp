@@ -31,7 +31,7 @@ export default function EditTank() {
     is_active: true
   });
   const token = localStorage.getItem('token');
-  const tankTypes = ['concrete', 'plastic', 'fiberglass', 'metal', 'earthen'];
+  const tankTypes = ['Hatching', 'IBC', 'Elevated', 'Ground', 'Tarpaulin'];
 
   useEffect(() => {
     fetchTank();
