@@ -359,8 +359,8 @@ function GrowthModal({ batchId, onClose, onSuccess }: { batchId: number, onClose
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-xl p-6 w-full max-w-sm">
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-[100] backdrop-blur-sm animate-in fade-in duration-300">
+            <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl animate-in zoom-in-95 duration-300 border border-gray-100 overflow-y-auto max-h-[90vh]">
                 <h3 className="text-lg font-bold mb-4">Add Growth Sample</h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -413,8 +413,8 @@ function MoveModal({ batchId, onClose, onSuccess }: { batchId: number, onClose: 
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-xl p-6 w-full max-w-sm">
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-[100] backdrop-blur-sm animate-in fade-in duration-300">
+            <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl animate-in zoom-in-95 duration-300 border border-gray-100 overflow-y-auto max-h-[90vh]">
                 <h3 className="text-lg font-bold mb-4">Move Batch</h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
