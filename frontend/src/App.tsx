@@ -14,7 +14,6 @@ import BatchDetails from './pages/production/BatchDetails';
 import SalesList from './pages/sales/SalesList';
 import NewSale from './pages/sales/NewSale';
 import CustomerList from './pages/sales/CustomerList';
-// import TankListOld from './pages/production/TankList'; // Unused
 import TankList from './pages/tanks/TankList';
 import CreateTank from './pages/tanks/CreateTank';
 import EditTank from './pages/tanks/EditTank';
@@ -77,7 +76,7 @@ function App() {
           <Route path="/suppliers" element={<ProtectedRoute><SuppliersList /></ProtectedRoute>} />
           <Route path="/workers" element={<ProtectedRoute><WorkersList /></ProtectedRoute>} />
           <Route path="/tanks" element={<ProtectedRoute><TankList /></ProtectedRoute>} />
-          <Route path="/tanks/create" element={<ProtectedRoute><CreateTank /></ProtectedRoute>} />
+          <Route path="/tanks/new" element={<ProtectedRoute><CreateTank /></ProtectedRoute>} />
           <Route path="/tanks/:id" element={<ProtectedRoute><ViewTank /></ProtectedRoute>} />
           <Route path="/tanks/:id/edit" element={<ProtectedRoute><EditTank /></ProtectedRoute>} />
 

@@ -3,7 +3,14 @@ import { query } from '../config/db';
 
 export const getTanks = async (req: Request, res: Response) => {
     try {
-        const result = await query(`SELECT * FROM tanks ORDER BY tank_name ASC`);
+        const result = await query(`
+            SELECT t.*, 
+                   COUNT(b.batch_id)::int as active_batches_count
+            FROM tanks t
+            LEFT JOIN batches b ON t.tank_id = b.current_tank_id AND b.status = 'Active'
+            GROUP BY t.tank_id
+            ORDER BY t.tank_name ASC
+        `);
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get tanks error:', error);
@@ -25,7 +32,24 @@ export const getTankById = async (req: Request, res: Response) => {
             return res.status(404).json({ success: false, message: 'Tank not found' });
         }
 
-        res.json({ success: true, data: result.rows[0] });
+        const tank = result.rows[0];
+
+        // Fetch active batches in this tank
+        const batchesResult = await query(
+            `SELECT batch_id, batch_code, start_date, current_stage, current_count 
+             FROM batches 
+             WHERE current_tank_id = $1 AND status = 'Active' 
+             ORDER BY start_date DESC`,
+            [id]
+        );
+
+        res.json({
+            success: true,
+            data: {
+                ...tank,
+                batches: batchesResult.rows
+            }
+        });
     } catch (error: any) {
         console.error('Get tank by ID error:', error);
         res.status(500).json({ success: false, message: error.message || 'Server error' });
@@ -82,9 +106,21 @@ export const deleteTank = async (req: Request, res: Response) => {
         const { id } = req.params;
 
         // Check for dependencies (batches)
-        const dependencies = await query('SELECT batch_id FROM batches WHERE current_tank_id = $1 LIMIT 1', [id]);
-        if (dependencies.rows.length > 0) {
+        const batches = await query('SELECT batch_id FROM batches WHERE current_tank_id = $1 LIMIT 1', [id]);
+        if (batches.rows.length > 0) {
             return res.status(400).json({ success: false, message: 'Cannot delete tank with active batches. Move batches first.' });
+        }
+
+        // Check for historical logs (feeding, health, movements)
+        const feedingLogs = await query('SELECT log_id FROM feeding_logs WHERE tank_id = $1 LIMIT 1', [id]);
+        const healthLogs = await query('SELECT log_id FROM health_logs WHERE tank_id = $1 LIMIT 1', [id]);
+        const movements = await query('SELECT movement_id FROM batch_movements WHERE from_tank_id = $1 OR to_tank_id = $1 LIMIT 1', [id]);
+
+        if (feedingLogs.rows.length > 0 || healthLogs.rows.length > 0 || movements.rows.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Cannot delete tank with historical data (feeding/health logs or movements). Archive it instead.'
+            });
         }
 
         const result = await query('DELETE FROM tanks WHERE tank_id = $1 RETURNING *', [id]);

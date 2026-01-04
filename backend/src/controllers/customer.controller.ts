@@ -57,3 +57,26 @@ export const updateCustomer = async (req: Request, res: Response) => {
         res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
+
+export const deleteCustomer = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        // Check for dependencies (sales)
+        const dependencies = await query('SELECT sale_id FROM sales WHERE customer_id = $1 LIMIT 1', [id]);
+        if (dependencies.rows.length > 0) {
+            return res.status(400).json({ success: false, message: 'Cannot delete customer with sales records.' });
+        }
+
+        const result = await query('DELETE FROM customers WHERE customer_id = $1 RETURNING *', [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ success: false, message: 'Customer not found' });
+        }
+
+        res.json({ success: true, message: 'Customer deleted successfully' });
+    } catch (error: any) {
+        console.error('Delete customer error:', error);
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
+    }
+};

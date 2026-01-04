@@ -1,6 +1,6 @@
 
 import { Router } from 'express';
-import { getCustomers, createCustomer, updateCustomer } from '../controllers/customer.controller';
+import { getCustomers, createCustomer, updateCustomer, deleteCustomer } from '../controllers/customer.controller';
 import { getSales, createSale, getSalesReport } from '../controllers/sales.controller';
 import { authenticateToken } from '../middleware/auth.middleware';
 
@@ -12,6 +12,7 @@ router.use(authenticateToken);
 router.get('/customers', getCustomers);
 router.post('/customers', createCustomer);
 router.put('/customers/:id', updateCustomer);
+router.delete('/customers/:id', deleteCustomer);
 
 // Sales
 router.get('/sales', getSales);

@@ -40,11 +40,22 @@ export interface Worker {
 
 export interface Supplier {
     supplier_id: number;
-    supplier_name: string;
+    name: string;
     contact_person?: string;
     phone_number?: string;
     email?: string;
+    category?: string;
+    notes?: string;
+}
+
+export interface Customer {
+    customer_id: number;
+    customer_code?: string;
+    full_name: string;
+    phone_number?: string;
+    email?: string;
     location?: string;
+    notes?: string;
 }
 
 export interface Tank {
@@ -55,6 +66,10 @@ export interface Tank {
     location: string;
     is_active: boolean;
     notes?: string;
+    created_at?: string;
+    tank_code?: string;
+    batches?: Batch[];
+    active_batches_count?: number;
 }
 
 export interface Batch {
