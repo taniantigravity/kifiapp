@@ -7,7 +7,7 @@ export const getTanks = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get tanks error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -28,7 +28,7 @@ export const getTankById = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows[0] });
     } catch (error: any) {
         console.error('Get tank by ID error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -51,7 +51,7 @@ export const createTank = async (req: Request, res: Response) => {
         res.status(201).json({ success: true, data: result.rows[0], message: 'Tank created successfully' });
     } catch (error: any) {
         console.error('Create tank error:', error);
-        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -73,7 +73,7 @@ export const updateTank = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows[0], message: 'Tank updated successfully' });
     } catch (error: any) {
         console.error('Update tank error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -95,6 +95,6 @@ export const deleteTank = async (req: Request, res: Response) => {
         res.json({ success: true, message: 'Tank deleted successfully' });
     } catch (error: any) {
         console.error('Delete tank error:', error);
-        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };

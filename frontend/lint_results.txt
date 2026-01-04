@@ -1,0 +1,41 @@
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+/home/taniantigravity/Documents/kifiapp/frontend/src/App.tsx
+  17:8  error  'TankListOld' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/taniantigravity/Documents/kifiapp/frontend/src/pages/production/NewBatch.tsx
+  30:20  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+/home/taniantigravity/Documents/kifiapp/frontend/src/pages/production/NewBatch.tsx:30:20
+  28 |     const [tanks, setTanks] = useState<Tank[]>([]);
+  29 |     const [spawns, setSpawns] = useState<Spawn[]>([]);
+> 30 |     const source = watch('source');
+     |                    ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  31 |
+  32 |     useEffect(() => {
+  33 |         const fetchData = async () => {  react-hooks/incompatible-library
+
+/home/taniantigravity/Documents/kifiapp/frontend/src/pages/tanks/CreateTank.tsx
+  44:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/taniantigravity/Documents/kifiapp/frontend/src/pages/tanks/EditTank.tsx
+  38:6   warning  React Hook useEffect has a missing dependency: 'fetchTank'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  56:19  error    Unexpected any. Specify a different type                                                                      @typescript-eslint/no-explicit-any
+  87:19  error    Unexpected any. Specify a different type                                                                      @typescript-eslint/no-explicit-any
+
+/home/taniantigravity/Documents/kifiapp/frontend/src/pages/tanks/TankList.tsx
+  25:6   warning  React Hook useEffect has a missing dependency: 'fetchTanks'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  35:19  error    Unexpected any. Specify a different type                                                                       @typescript-eslint/no-explicit-any
+  51:19  error    Unexpected any. Specify a different type                                                                       @typescript-eslint/no-explicit-any
+
+/home/taniantigravity/Documents/kifiapp/frontend/src/pages/tanks/ViewTank.tsx
+  28:6   warning  React Hook useEffect has a missing dependency: 'fetchTank'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  37:19  error    Unexpected any. Specify a different type                                                                      @typescript-eslint/no-explicit-any
+
+✖ 11 problems (7 errors, 4 warnings)
+

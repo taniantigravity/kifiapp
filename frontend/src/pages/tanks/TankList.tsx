@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Plus, Edit2, Trash2, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -20,11 +20,7 @@ export default function TankList() {
   const [error, setError] = useState('');
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    fetchTanks();
-  }, []);
-
-  const fetchTanks = async () => {
+  const fetchTanks = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get('/api/v1/tanks', {
@@ -32,13 +28,21 @@ export default function TankList() {
       });
       setTanks(response.data.data || []);
       setError('');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to load tanks');
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || 'Failed to load tanks');
+      } else {
+        setError('Failed to load tanks');
+      }
       console.error('Error fetching tanks:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchTanks();
+  }, [fetchTanks]);
 
   const handleDelete = async (id: number) => {
     if (!window.confirm('Are you sure you want to delete this tank?')) return;
@@ -48,8 +52,12 @@ export default function TankList() {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTanks(tanks.filter(t => t.tank_id !== id));
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to delete tank');
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || 'Failed to delete tank');
+      } else {
+        setError('Failed to delete tank');
+      }
     }
   };
 
@@ -103,11 +111,10 @@ export default function TankList() {
                   <td className="px-6 py-4 text-gray-700">{tank.location}</td>
                   <td className="px-6 py-4 text-gray-700">{tank.capacity_liters.toLocaleString()}</td>
                   <td className="px-6 py-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      tank.is_active 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-gray-100 text-gray-800'
-                    }`}>
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${tank.is_active
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-gray-100 text-gray-800'
+                      }`}>
                       {tank.is_active ? 'Active' : 'Inactive'}
                     </span>
                   </td>

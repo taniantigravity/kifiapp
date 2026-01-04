@@ -31,7 +31,7 @@ export const getHealthLogs = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get health logs error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -84,7 +84,7 @@ export const logHealthIssue = async (req: Request, res: Response) => {
         res.status(201).json({ success: true, data: result.rows[0], message: 'Health log recorded' });
     } catch (error: any) {
         console.error('Log health issue error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -138,7 +138,7 @@ export const addTreatment = async (req: Request, res: Response) => {
 
     } catch (error: any) {
         console.error('Add treatment error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -157,6 +157,6 @@ export const getTreatments = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get treatments error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };

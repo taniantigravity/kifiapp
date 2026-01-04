@@ -30,7 +30,7 @@ export const createBroodstock = async (req: Request, res: Response) => {
         if (error.code === '23505') { // Unique violation
             return res.status(400).json({ success: false, message: 'Broodstock code already exists' });
         }
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -40,7 +40,7 @@ export const getBroodstock = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get broodstock error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -63,7 +63,7 @@ export const updateBroodstock = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows[0], message: 'Broodstock updated successfully' });
     } catch (error: any) {
         console.error('Update broodstock error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -85,6 +85,6 @@ export const deleteBroodstock = async (req: Request, res: Response) => {
         res.json({ success: true, message: 'Broodstock deleted successfully' });
     } catch (error: any) {
         console.error('Delete broodstock error:', error);
-        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, Edit2 } from 'lucide-react';
@@ -23,23 +23,27 @@ export default function ViewTank() {
   const [tank, setTank] = useState<Tank | null>(null);
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    fetchTank();
-  }, [id]);
-
-  const fetchTank = async () => {
+  const fetchTank = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(`/api/v1/tanks/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTank(response.data.data);
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to load tank');
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || 'Failed to load tank');
+      } else {
+        setError('Failed to load tank');
+      }
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, token]);
+
+  useEffect(() => {
+    fetchTank();
+  }, [fetchTank]);
 
   if (loading) return <div className="p-6">Loading tank...</div>;
   if (!tank) return <div className="p-6">Tank not found</div>;
@@ -101,11 +105,10 @@ export default function ViewTank() {
 
           <div>
             <p className="text-gray-600 text-sm mb-1">Status</p>
-            <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-              tank.is_active 
-                ? 'bg-green-100 text-green-800' 
+            <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${tank.is_active
+                ? 'bg-green-100 text-green-800'
                 : 'bg-gray-100 text-gray-800'
-            }`}>
+              }`}>
               {tank.is_active ? 'Active' : 'Inactive'}
             </span>
           </div>

@@ -18,7 +18,7 @@ export const getSales = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get sales error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 

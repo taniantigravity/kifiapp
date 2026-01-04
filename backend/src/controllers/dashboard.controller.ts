@@ -33,7 +33,7 @@ export const getDashboardSummary = async (req: Request, res: Response) => {
         res.json({ success: true, data: summary });
     } catch (error: any) {
         console.error('Dashboard summary error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -52,6 +52,6 @@ export const getDashboardTasks = async (req: Request, res: Response) => {
         res.json({ success: true, data: tasks });
     } catch (error: any) {
         console.error('Dashboard tasks error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };

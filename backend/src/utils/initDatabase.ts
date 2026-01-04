@@ -49,6 +49,8 @@ export async function initializeDatabase(): Promise<void> {
         console.error('❌ Error synchronizing database:', error);
         throw error;
     } finally {
+        // Close the temporary initialization pool
+        // DO NOT close the main app pool - it's created separately in db.ts
         await pool.end();
     }
 }

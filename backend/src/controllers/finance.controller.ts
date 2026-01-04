@@ -48,7 +48,7 @@ export const deleteExpense = async (req: Request, res: Response) => {
         res.json({ success: true, message: 'Expense deleted successfully' });
     } catch (error: any) {
         console.error('Delete expense error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -140,7 +140,7 @@ export const getCategories = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get categories error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -157,7 +157,7 @@ export const addCategory = async (req: Request, res: Response) => {
         res.status(201).json({ success: true, data: result.rows[0] });
     } catch (error: any) {
         console.error('Add category error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -175,7 +175,7 @@ export const updateCategory = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows[0] });
     } catch (error: any) {
         console.error('Update category error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -193,6 +193,6 @@ export const deleteCategory = async (req: Request, res: Response) => {
         res.json({ success: true, message: 'Category deleted successfully' });
     } catch (error: any) {
         console.error('Delete category error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };

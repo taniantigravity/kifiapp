@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
@@ -41,8 +41,12 @@ export default function CreateTank() {
         headers: { Authorization: `Bearer ${token}` }
       });
       navigate('/tanks');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to create tank');
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || 'Failed to create tank');
+      } else {
+        setError('Failed to create tank');
+      }
       console.error('Error creating tank:', err);
     } finally {
       setLoading(false);

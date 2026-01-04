@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
@@ -33,11 +33,7 @@ export default function EditTank() {
   const token = localStorage.getItem('token');
   const tankTypes = ['Hatching', 'IBC', 'Elevated', 'Ground', 'Tarpaulin'];
 
-  useEffect(() => {
-    fetchTank();
-  }, [id]);
-
-  const fetchTank = async () => {
+  const fetchTank = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(`/api/v1/tanks/${id}`, {
@@ -53,19 +49,27 @@ export default function EditTank() {
         notes: tankData.notes || '',
         is_active: tankData.is_active
       });
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to load tank');
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || 'Failed to load tank');
+      } else {
+        setError('Failed to load tank');
+      }
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, token]);
+
+  useEffect(() => {
+    fetchTank();
+  }, [fetchTank]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : 
-              name === 'capacity_liters' ? (value ? parseInt(value) : '') : value
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked :
+        name === 'capacity_liters' ? (value ? parseInt(value) : '') : value
     }));
   };
 
@@ -84,8 +88,12 @@ export default function EditTank() {
         headers: { Authorization: `Bearer ${token}` }
       });
       navigate('/tanks');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to update tank');
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || 'Failed to update tank');
+      } else {
+        setError('Failed to update tank');
+      }
     } finally {
       setSubmitting(false);
     }

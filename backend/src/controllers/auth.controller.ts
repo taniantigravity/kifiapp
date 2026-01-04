@@ -44,7 +44,7 @@ export const register = async (req: Request, res: Response) => {
 
     } catch (error: any) {
         console.error('Registration error:', error);
-        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -120,15 +120,14 @@ export const login = async (req: Request, res: Response) => {
         });
         res.status(500).json({
             success: false,
-            message: 'Server error: ' + error.message
+            message: error.message || 'Server error'
         });
     }
 };
 
 export const verifyToken = async (req: Request, res: Response) => {
     try {
-        // @ts-ignore
-        const userId = req.user?.user_id;
+        const userId = (req as any).user?.user_id;
 
         if (!userId) {
             return res.status(401).json({ success: false, message: 'Invalid token payload' });
@@ -149,6 +148,6 @@ export const verifyToken = async (req: Request, res: Response) => {
         res.json({ success: true, data: userResult.rows[0] });
     } catch (error: any) {
         console.error('Verify token error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };

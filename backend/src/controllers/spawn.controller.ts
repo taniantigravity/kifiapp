@@ -2,8 +2,6 @@ import { Request, Response } from 'express';
 import { query } from '../config/db';
 
 export const createSpawn = async (req: Request, res: Response) => {
-    // Combine date and time for timestamp fields
-    let params_injection_time = null;
     const {
         spawn_date,
         female_code,
@@ -54,7 +52,7 @@ export const createSpawn = async (req: Request, res: Response) => {
 
     } catch (error: any) {
         console.error('Create spawn error:', error);
-        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -74,7 +72,7 @@ export const getSpawns = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get spawns error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -101,7 +99,7 @@ export const getSpawnById = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows[0] });
     } catch (error: any) {
         console.error('Get spawn error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -154,7 +152,7 @@ export const updateSpawn = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows[0], message: 'Spawn updated successfully' });
     } catch (error: any) {
         console.error('Update spawn error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -173,6 +171,6 @@ export const getBroodstockOptions = async (req: Request, res: Response) => {
         });
     } catch (error: any) {
         console.error('Get broodstock options error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 }

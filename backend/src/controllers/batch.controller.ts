@@ -13,7 +13,7 @@ export const getBatches = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get batches error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -54,7 +54,7 @@ export const createBatch = async (req: Request, res: Response) => {
         if (error.code === '23505') { // Unique violation
             return res.status(400).json({ success: false, message: 'Batch code already exists' });
         }
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 // ... existing imports
@@ -77,7 +77,7 @@ export const getBatchById = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows[0] });
     } catch (error: any) {
         console.error('Get batch error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -124,7 +124,7 @@ export const updateBatch = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows[0], message: 'Batch updated successfully' });
     } catch (error: any) {
         console.error('Update batch error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -227,7 +227,7 @@ export const addGrowthSample = async (req: Request, res: Response) => {
         res.json({ success: true, message: 'Growth sample recorded' });
     } catch (error: any) {
         console.error('Add growth sample error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -241,7 +241,7 @@ export const getGrowthSamples = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get growth samples error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
 
@@ -292,6 +292,6 @@ export const getBatchMovements = async (req: Request, res: Response) => {
         res.json({ success: true, data: result.rows });
     } catch (error: any) {
         console.error('Get batch movements error:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        res.status(500).json({ success: false, message: error.message || 'Server error' });
     }
 };
